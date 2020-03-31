@@ -15,6 +15,5 @@ ReactDOM.render(
             <Route path="/archives" component={Archives}></Route>
             <Route path="/settings" component={Settings}></Route>
         </Layout>
-    </Router>,
-    app
-);
+    </Router>,    
+app);
