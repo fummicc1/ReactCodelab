@@ -14,10 +14,9 @@ export default class Layout extends React.Component {
         setTimeout(() => {
             this.setState({title: "Welcome!"})
         }, 1000);
-        return (                        
-            <div>           
-                {this.state.title}     
-                <Header/>
+        return (
+            <div>               
+                <Header title={this.state.title}/>
                 <Footer/>
             </div>
         );
