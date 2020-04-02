@@ -1,4 +1,5 @@
 import React from 'react';
+import Thumbnail from './Thumbnail';
 
 function Projects(props) {
     return (
@@ -6,6 +7,12 @@ function Projects(props) {
             <h1>
                 Projects
             </h1>
+            <Thumbnail
+                link=""
+                image=""
+                title="トイレまっぷ"
+                category="iOS App"
+            />
         </div>
     )
 }
