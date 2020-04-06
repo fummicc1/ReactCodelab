@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import { Button, Col } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row'
 
-function FormContainer(props) {
+function ToDoFormContainer(props) {
     return (
         <Container>
             <Form onClick>
@@ -24,4 +24,4 @@ function FormContainer(props) {
     )
 }
 
-export default FormContainer;
+export default ToDoFormContainer;

@@ -1,12 +1,26 @@
 import React from 'react';
-import FormContainer from './FormContainer';
+import ToDoFormContainer from './ToDoFormContainer';
 import Container from 'react-bootstrap/Container';
+import ToDoListContainer from './ToDoListContainer';
+import { Row, Col } from 'react-bootstrap';
 
 function App() {
   return (
-    <Container className="App">
+    <Container fluid className="App">
       <h1 className="mb-4 mt-3">ToDoApp</h1>
-      <FormContainer />
+      <Container>
+        <Row>
+          <Col>
+            <ToDoFormContainer />
+          </Col>
+        </Row>
+        <hr />
+        <Row>
+          <Col className="mt-3">
+            <ToDoListContainer />
+          </Col>
+        </Row>
+      </Container>
     </Container>
   );
 }
