@@ -1,17 +1,13 @@
 import React from 'react';
-import Form from './Form';
-import List from './List';
+import FormContainer from './FormContainer';
+import Container from 'react-bootstrap/Container';
 
 function App() {
   return (
-    <div className="App">
-      <div className="">
-        <h1 className="">ToDoApp</h1>
-      <Form/>
-      <div className=""></div>
-      <List />
-      </div>
-    </div>
+    <Container className="App">
+      <h1 className="mb-4 mt-3">ToDoApp</h1>
+      <FormContainer />
+    </Container>
   );
 }
 
