@@ -13,12 +13,13 @@ const App: React.FC = () => {
   firebase.initializeApp(firebaseConfig)
   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
   return (
-    <Home>
-    </Home>
+    <div className="App">
+      <Home />
+    </div>
   )
 }
 
-interface Props {}
+interface Props { }
 interface State {
   isSignin: boolean
 }
@@ -28,30 +29,28 @@ class Home extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      isSignin: firebase.auth().currentUser == null
+      isSignin: firebase.auth().currentUser != null
     }
     firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
   }
 
   onAuthStateChanged = (user: firebase.User | null) => {
     this.setState({
-      isSignin: user == null
+      isSignin: user != null
     })
   }
 
   render() {
-    const body: ReactNode = this.state.isSignin ? <ToDoList/> : <SignUp />
+    const body: ReactNode = this.state.isSignin ? <ToDoList /> : <SignUp />
     return (
-      <div className="App">
-        <Container>  
-          <Jumbotron fluid>
-            <h1>
-              ToDo App
+      <Container fluid>
+        <Jumbotron fluid>
+          <h1 className="ml-5">
+            ToDo App
             </h1>
-          </Jumbotron>     
-          {body}
-        </Container>
-      </div>
+        </Jumbotron>
+        {body}
+      </Container>
     )
   }
 }
