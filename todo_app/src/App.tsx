@@ -7,7 +7,7 @@ import SignUp from './pages/SignUp'
 import ToDo from './pages/ToDo'
 import { firebaseConfig } from './firebase/config'
 import ToDoList from './pages/ToDoList'
-
+import { Switch, BrowserRouter as Router, Link, Route } from 'react-router-dom'
 
 const App: React.FC = () => {
   firebase.initializeApp(firebaseConfig)
@@ -43,13 +43,11 @@ class Home extends React.Component<Props, State> {
   render() {
     const body: ReactNode = this.state.isSignin ? <ToDoList /> : <SignUp />
     return (
-      <Container fluid>
-        <Jumbotron fluid>
-          <h1 className="ml-5">
-            ToDo App
-            </h1>
-        </Jumbotron>
-        {body}
+      <Container>
+        <Switch>
+          <Route exact path="/signUp" component={SignUp}></Route>
+          <Route path="/todo_list" component={ToDoList}></Route>
+        </Switch>
       </Container>
     )
   }
