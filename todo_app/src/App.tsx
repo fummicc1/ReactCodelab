@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ReactNode } from 'react'
+import './App.css'
+import Container from 'react-bootstrap/Container'
+import Jumbotron from 'react-bootstrap/Jumbotron'
+import firebase from 'firebase'
+import SignUp from './pages/SignUp'
+import ToDo from './pages/ToDo'
+import { firebaseConfig } from './firebase/config'
 
-function App() {
+
+const App: React.FC = () => {
+  firebase.initializeApp(firebaseConfig)
+  if (firebase.auth().currentUser == null) {
+    return (
+      <Home child={<SignUp></SignUp>}>
+      </Home>
+    )
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Home child={<ToDo></ToDo>}>
+    </Home>
+  )
 }
 
-export default App;
+interface Props {
+  child: ReactNode
+}
+
+const Home: React.FC<Props> = (props) => {
+  return (
+    <div className="App">
+      <Container>  
+        <Jumbotron fluid>
+          <h1>
+            ToDo App
+          </h1>
+        </Jumbotron>     
+        {props.child}
+      </Container>
+    </div>
+  )
+}
+
+export default App
