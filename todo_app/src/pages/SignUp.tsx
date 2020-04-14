@@ -12,6 +12,15 @@ interface State {
 }
 
 class SignUp extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props)
+        this.state = {
+            email: "",
+            password: ""
+        }
+    }
+
     render() {
         return (
             <Container fluid>
@@ -20,11 +29,11 @@ class SignUp extends React.Component<Props, State> {
                         <Form.Group controlId="formEmail">
                             <Form.Label>
                                 メールアドレス
-                    </Form.Label>
-                            <Form.Control type="email" placeholder="メールアドレスを入力" value={this.state.email}></Form.Control>
+                            </Form.Label>
+                            <Form.Control type="email" placeholder="メールアドレスを入力" value={this.state.email} onChange={this.onChangeEmail} />
                         </Form.Group>
                         <Form.Group controlId="formPassword">
-                            <Form.Control type="password" placeholder="パスワードを入力" value={this.state.password}></Form.Control>
+                            <Form.Control type="password" placeholder="パスワードを入力" value={this.state.password} onChange={this.onChangePassword} />
                             <Form.Text className="text-muted">パスワードは6文字以上である必要があります。</Form.Text>
                         </Form.Group>
                         <Button variant="primary" type="submit">登録</Button>
@@ -34,13 +43,28 @@ class SignUp extends React.Component<Props, State> {
         )
     }
 
+    onChangeEmail = (event: FormEvent<HTMLInputElement>) => {
+        this.setState({
+            email: event.currentTarget.value
+        })
+    }
+
+    onChangePassword = (event: FormEvent<HTMLInputElement>) => {
+        this.setState({
+            password: event.currentTarget.value
+        })
+    }
+
     signUp(event: FormEvent<HTMLFormElement>) {
         let email = this.state.email
         let password = this.state.password
-        firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
-            if (userCredential.user) {
-            }
-        });
+        console.log(email)
+        if (email && password) {
+            firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
+                if (userCredential.user) {
+                }
+            });
+        }
         event.preventDefault()
     }
 }

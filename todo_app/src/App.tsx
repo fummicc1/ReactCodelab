@@ -5,8 +5,7 @@ import firebase, { User } from 'firebase'
 import SignUp from './pages/SignUp'
 import { firebaseConfig } from './firebase/config'
 import ToDoList from './pages/ToDoList'
-import { Switch, BrowserRouter as Router, Link, Route, withRouter, RouteComponentProps } from 'react-router-dom'
-import createBrowserHistory from 'history/createBrowserHistory'
+import { BrowserRouter as Router, Route, withRouter, RouteComponentProps } from 'react-router-dom'
 
 const App: React.FC = () => {
   firebase.initializeApp(firebaseConfig)
@@ -15,6 +14,8 @@ const App: React.FC = () => {
     <div className="App">
       <Router>
         <Route exact path="/" component={withRouter(Home)}></Route>
+        <Route exact path="/signUp" component={SignUp}></Route>
+        <Route exact path="/todo_list" component={ToDoList}></Route>
       </Router>
     </div>
   )
@@ -39,12 +40,7 @@ class Home extends React.Component<RouteComponentProps, State> {
 
   render() {    
     return (
-      <Container>
-        <Switch>
-          <Route exact path="/signUp" component={SignUp}></Route>
-          <Route path="/todo_list" component={ToDoList}></Route>
-        </Switch>
-      </Container>
+      <Container />
     )
   }
 }
