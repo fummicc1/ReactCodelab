@@ -1,47 +1,49 @@
 import React, { ReactNode } from 'react'
 import './App.css'
 import Container from 'react-bootstrap/Container'
-import Jumbotron from 'react-bootstrap/Jumbotron'
 import firebase, { User } from 'firebase'
 import SignUp from './pages/SignUp'
-import ToDo from './pages/ToDo'
 import { firebaseConfig } from './firebase/config'
 import ToDoList from './pages/ToDoList'
-import { Switch, BrowserRouter as Router, Link, Route } from 'react-router-dom'
+import { Switch, BrowserRouter as Router, Link, Route, withRouter, RouteComponentProps } from 'react-router-dom'
+import createBrowserHistory from 'history/createBrowserHistory'
 
 const App: React.FC = () => {
   firebase.initializeApp(firebaseConfig)
   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
   return (
     <div className="App">
-      <Home />
+      <Router>
+        <Route exact path="/" component={withRouter(Home)}></Route>
+      </Router>
     </div>
   )
 }
-
-interface Props { }
 interface State {
-  isSignin: boolean
+  isInitialized: boolean
 }
 
-class Home extends React.Component<Props, State> {
+class Home extends React.Component<RouteComponentProps, State> {
 
-  constructor(props: Props) {
+  constructor(props: RouteComponentProps) {
     super(props)
     this.state = {
-      isSignin: firebase.auth().currentUser != null
-    }
-    firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
+      isInitialized: false
+    }    
   }
 
   onAuthStateChanged = (user: firebase.User | null) => {
-    this.setState({
-      isSignin: user != null
-    })
+    if (user != null) {
+      this.props.history.push("/todo_list")
+    } else {
+      this.props.history.push("/signUp")
+    }
   }
 
-  render() {
-    const body: ReactNode = this.state.isSignin ? <ToDoList /> : <SignUp />
+  render() {    
+    if (!this.state.isInitialized) {
+      firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
+    }
     return (
       <Container>
         <Switch>

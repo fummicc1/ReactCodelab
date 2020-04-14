@@ -13,25 +13,24 @@ interface State {
 
 class SignUp extends React.Component<Props, State> {
     render() {
-        return(
+        return (
             <Container fluid>
-            <form onSubmit={this.signUp}>
-
-            </form>
-            <Form>
-                <Form.Group controlId="formEmail">
-                    <Form.Label>
-                        メールアドレス
+                <form onSubmit={this.signUp}>
+                    <Form>
+                        <Form.Group controlId="formEmail">
+                            <Form.Label>
+                                メールアドレス
                     </Form.Label>
-                    <Form.Control type="email" placeholder="メールアドレスを入力" value={this.state.email}></Form.Control>
-                </Form.Group>
-                <Form.Group controlId="formPassword">
-                    <Form.Control type="password" placeholder="パスワードを入力" value={this.state.password}></Form.Control>
-                    <Form.Text className="text-muted">パスワードは6文字以上である必要があります。</Form.Text>
-                </Form.Group>
-                <Button variant="primary" type="submit">登録</Button>
-            </Form>
-        </Container>
+                            <Form.Control type="email" placeholder="メールアドレスを入力" value={this.state.email}></Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formPassword">
+                            <Form.Control type="password" placeholder="パスワードを入力" value={this.state.password}></Form.Control>
+                            <Form.Text className="text-muted">パスワードは6文字以上である必要があります。</Form.Text>
+                        </Form.Group>
+                        <Button variant="primary" type="submit">登録</Button>
+                    </Form>
+                </form>
+            </Container>
         )
     }
 
@@ -40,8 +39,7 @@ class SignUp extends React.Component<Props, State> {
         let password = this.state.password
         firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
             if (userCredential.user) {
-                this.props
-            }  
+            }
         });
         event.preventDefault()
     }
