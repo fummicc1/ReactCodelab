@@ -19,17 +19,14 @@ const App: React.FC = () => {
     </div>
   )
 }
-interface State {
-  isInitialized: boolean
-}
+
+interface State { }
 
 class Home extends React.Component<RouteComponentProps, State> {
 
   constructor(props: RouteComponentProps) {
     super(props)
-    this.state = {
-      isInitialized: false
-    }    
+    firebase.auth().onAuthStateChanged(this.onAuthStateChanged)
   }
 
   onAuthStateChanged = (user: firebase.User | null) => {
@@ -41,9 +38,6 @@ class Home extends React.Component<RouteComponentProps, State> {
   }
 
   render() {    
-    if (!this.state.isInitialized) {
-      firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
-    }
     return (
       <Container>
         <Switch>
